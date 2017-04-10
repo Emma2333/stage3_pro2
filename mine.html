@@ -62,6 +62,17 @@
 
     var btn=document.getElementById('btn');
     btn.onclick=function () {
+        username();
+        password();
+        psdconcern();
+        email();
+        telephone();
+        if(username()&&password()&&psdconcern()&& email()&&telephone()){
+            return true;
+        }else {
+            alert('输入有误');
+            return false;
+        }
     }
 
 
@@ -157,7 +168,7 @@
         }
         input.onblur=function () {
             var val=input.value;
-            var re=/^(.+)@(.+)$/
+            var re=/(\w+)@(\w+).(com|cn)/
             if(re.test(val)){
                 tip.innerHTML="邮箱格式正确";
                 tip.style.color = "#0ec70e";
