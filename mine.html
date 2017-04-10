@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form{
+            padding: 10px;
+        }
+        #btn{
+            background: #3598DB;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 10px;
+            border: 0px;
+        }
+        .tip{
+            display: block;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form action="" method="post">
+        <label>名称
+            <input type="text" name="myname" id="msg_name">
+            <p class="tip" id="nametip"></p>
+        </label>
+
+        <label>密码
+            <input type="password" name="mypsd" id="psd">
+            <p class="tip" id="psdtip"></p>
+        </label>
+
+        <label>密码确认
+            <input type="password" name="mypsd" id="psd_concern">
+            <p class="tip" id="concerntip"></p>
+        </label>
+
+        <label>邮箱
+            <input type="email" name="myemail" id="email">
+            <p class="tip" id="emailtip"></p>
+        </label>
+
+        <label>手机
+            <input type="text" name="mynum" id="num">
+            <p class="tip" id="teletip"></p>
+        </label>
+
+        <button type="button" id="btn">提交</button>
+    </form>
+</div>
+<script>
+    //改变所有输入内容一起判断的思想，将输入内容看做一个数组，每一个元素分别判断
+
+    username();
+    password();
+    psdconcern();
+    email();
+    telephone();
+
+    var btn=document.getElementById('btn');
+    btn.onclick=function () {
+    }
+
+
+    function username() {
+        var input=document.getElementById('msg_name');
+        var tip=document.getElementById('nametip');
+        input.onfocus=function () {
+            tip.innerHTML="必填，长度为4~16个字符";
+        }
+        input.onblur=function () {
+            var len=0;
+            var val=document.getElementById('msg_name').value;
+            var flag=true;
+            for(var i=0;i<val.length;i++){
+                if(test(val[i])){
+                    len++;
+                }else{
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag && len>=4 && len<=16){
+                tip.innerHTML = "名称格式正确";
+                tip.style.color = "#0ec70e";
+                input.style.border="2px solid #0ec70e"
+            }else{
+                tip.innerHTML = "字符数应为4~16位";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }
+        }
+
+    };
+
+    function password() {
+        var input=document.getElementById('psd');
+        var tip=document.getElementById('psdtip');
+        input.onfocus=function () {
+            tip.innerHTML="请输入6位以上数字字母密码";
+        }
+        input.onblur=function () {
+            var len=0;
+            var val=document.getElementById('psd').value;
+            var flag=true;
+            for(var i=0;i<val.length;i++){
+                if(test(val[i])){
+                    len++;
+                }else{
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag && len>=6){
+                tip.innerHTML = "密码格式正确";
+                tip.style.color = "#0ec70e";
+                input.style.border="2px solid #0ec70e"
+            }else{
+                tip.innerHTML = "密码格式有误";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }
+        }
+
+    }
+
+    function psdconcern() {
+        var input=document.getElementById('psd_concern');
+        var tip=document.getElementById('concerntip');
+        input.onfocus=function () {
+            tip.innerHTML="请重复输入您的密码";
+        }
+        input.onblur=function () {
+            var psd=document.getElementById('psd').value;
+            var input=document.getElementById('psd_concern');
+            var val=document.getElementById('psd_concern').value;
+            if(psd==val){
+                tip.innerHTML = "两次输入一致，密码保存成功";
+                tip.style.color = "#0ec70e";
+                input.style.border="2px solid #0ec70e"
+            }else{
+                tip.innerHTML = "两次输入不一致，请重新输入";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }
+        }
+    }
+
+    function email() {
+        var input=document.getElementById('email');
+        var tip=document.getElementById('emailtip');
+        input.onfocus=function () {
+            tip.innerHTML="请输入您的邮箱";
+        }
+        input.onblur=function () {
+            var val=input.value;
+            var re=/^(.+)@(.+)$/
+            if(re.test(val)){
+                tip.innerHTML="邮箱格式正确";
+                tip.style.color = "#0ec70e";
+                input.style.border="2px solid #0ec70e"
+            }else {
+                tip.innerHTML="邮箱格式错误";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }
+        }
+    }
+
+    function telephone() {
+        var input=document.getElementById('num');
+        var tip=document.getElementById('teletip');
+        input.onfocus=function () {
+            tip.innerHTML="请输入您的手机号";
+        }
+        input.onblur=function () {
+            var val=input.value;
+            var re=/^\d{11}$/
+            if(re.test(val)){
+                tip.innerHTML="手机号格式正确";
+                tip.style.color = "#0ec70e";
+                input.style.border="2px solid #0ec70e"
+            }else {
+                tip.innerHTML="请输入正确的手机号";
+                tip.style.color = "red";
+                input.style.border="2px solid red"
+            }
+        }
+    }
+
+    function test(ch) {
+        return /^[0-9a-zA-Z]$/.test(ch);
+    }
+
+
+</script>
+</body>
+</html>
